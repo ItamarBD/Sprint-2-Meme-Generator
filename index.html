@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="css/style.css">
+    <title>Document</title>
+</head>
+<body onload="init()">
+
+    <main class="main-container">
+
+        <div class="canvas-container">
+            <canvas class="canvas-body" max-width="600" height="auto">
+            <!-- <canvas class="canvas-body"> -->
+                <img src="img/004.jpg" onclick="console.log(this)">
+            </canvas>
+            
+            
+        </div>
+        
+        <div class="edit-pannel-container">
+            <!-- <button class="up">↑</button> <br>
+            <button class="left">←</button>
+            <button class="right">→</button> <br>
+            <button class="down">↓</button> <br><br> -->
+            <button class="increase" onclick="increaseFont()">+</button>
+            <button class="decrease">-</button> 
+            <input type="color" id="color-changer" onchange="changeColor()">
+            
+        </div>
+        
+    </main>
+
+    <script src="js/main.js"></script>
+</body>
+</html>
