@@ -12,23 +12,37 @@
     <main class="main-container">
 
         <div class="canvas-container">
-            <canvas class="canvas-body" max-width="600" height="auto">
-            <!-- <canvas class="canvas-body"> -->
-                <img src="img/004.jpg" onclick="console.log(this)">
+            <!-- <canvas class="canvas-body" max-width="600" height="auto"> -->
+            <canvas class="canvas-body">
+                <img src="img/004.jpg">
             </canvas>
-            
             
         </div>
         
         <div class="edit-pannel-container">
-            <!-- <button class="up">↑</button> <br>
-            <button class="left">←</button>
-            <button class="right">→</button> <br>
-            <button class="down">↓</button> <br><br> -->
             <button class="increase" onclick="increaseFont()">+</button>
-            <button class="decrease">-</button> 
-            <input type="color" id="color-changer" onchange="changeColor()">
+            <button class="decrease" onclick="decreaseFont()">-</button> 
+            <input type="color" id="color-changer" onsubmit="changeColor()">
+            <button class="clear-btn" onclick="clearText()">Clear text</button> 
+            <input id="text-box" type="text" oninput="renderCanvas(this.value)"> <br> <br>
+            <button id="add-text" class="add-text-btn" onclick="addText()">Add text</button> <br> <br> 
+            <button id="next-line" onclick="nextLine()">Next line</button> 
+            <button id="prev-line" onclick="prevLine()">Previous line</button> <br> <br> 
+            <button class="up" onclick="moveTextUp()">↑</button> <br>
+            <button class="left" onclick="moveTextLeft()">←</button>
+            <button class="right" onclick="moveTextRight()">→</button> <br>
+            <button class="down" onclick="moveTextDown()">↓</button> <br><br>
+            <a href="" type="button" class="download-btn" id="download" onclick="downloadCanvas(this)" >Download</a> <br> <br>
+            <button class="text-align" onclick="txtAlignLeft()">Align left</button> 
+            <button class="text-align" onclick="txtAlignCenter()">Align center</button> 
+            <button class="text-align" onclick="txtAlignRight()">Align right</button> <br>
+            <select name="font-selector" id="font" onchange="changFont()">Font
+                <option id="impact-font"  value="impact">Impact</option>
+                <option id="serif-font" value="serif">Serif</option>
+                <option id="helvetica-font" value="helvetica ">Helvetica </option>
+            </select> 
             
+
         </div>
         
     </main>
