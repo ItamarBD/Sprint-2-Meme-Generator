@@ -3,7 +3,7 @@
     src: url(../fonts/FjallaOne-Regular.ttf);
 }
 
-html {
+html, .btn {
     font-family: FjallaOne;
 }
 
@@ -18,12 +18,27 @@ body {
 
 header {
     text-align: center;
+    max-width: 1500px;
     background-color: lightgoldenrodyellow;
-    border: 10px solid lightgreen;
-    box-shadow: 5px 5px 15px 10px grey;
-    border-radius: 9px;
-    text-align: center;
+    border: 5px solid lightgreen;
+    box-shadow: 5px 5px 15px 5px grey;
+    border-radius: 10px;
     margin: 15px 5px;
+}
+
+.title {
+    margin-left: 30px;
+}
+
+.lang-bar {
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.contact {
+    align-self: flex-end;
+    margin: 0 15px 10px;
+    color: black;
 }
 
 .main-container {
@@ -46,12 +61,20 @@ header {
     flex-direction: row;
 }
 
+.about-container {
+    flex-direction: column;
+    margin-left: 50px;
+    align-items: center;    
+}
+
 canvas {
     width: 100%;
     height: auto;
     border: 2px green solid;
     align-self: center;
-    margin-top: 20px;
+    margin-top: 15px;
+    border-radius: 4px;
+    box-shadow: 0px 0px 10px 1px black;
 }
 
 
@@ -71,10 +94,16 @@ canvas {
     padding: 3px;
     margin: 3px;
     z-index: 1;
+    cursor: pointer;
 }
 
 .move-btn {
     width: 50px
+}
+
+.upload-btn {
+    font-size: 16px;
+    padding: 4px 30px;
 }
 
 .align {
@@ -83,6 +112,14 @@ canvas {
 
 .align .btn {
     padding: 4px 20px;
+}
+
+.email-btn {
+    padding: 10px 30px;
+}
+
+.color-font {
+    margin-top: 5px;
 }
 
 .increase, .decrease {
@@ -94,7 +131,6 @@ a {
     transition: 0.4s;
     color: white;
     font-size: 1rem;
-    color: black;
 }
 
 a:hover, .btn:hover {
@@ -109,6 +145,7 @@ input {
 
 #color-changer {
     background-color: beige;
+    cursor: pointer;
 }
 
 .header-img {
@@ -118,20 +155,30 @@ input {
     width: 130px;
 }
 
-.canvas-img {
+.me-img {
+    align-self: center; 
+    border-radius: 50%;
 }
 
 #font {
     margin: 10px 0;
+    cursor: pointer;
 }
 
+input[type="file"] {
+    display: none;
+}
+
+.language {
+    cursor: pointer;
+}
 
 @media (max-width: 740px) {
     .flex-container {
         flex-direction: column;
     }
 
-    header {
+    .header {
         display: none;
     }
 

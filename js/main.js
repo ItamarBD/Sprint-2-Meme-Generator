@@ -9,7 +9,7 @@ var gMeme = {
             align: 'left',
             color: '',
             posX: 30,
-            posY: 50,
+            posY: 70,
             font: 'impact'
         }
     ],
@@ -77,31 +77,29 @@ function clearGmeme() {
 function handleImage(e) {
     clearGmeme();
 
-    console.log('imgHeight 1',gMeme.imgHeight)
+    console.log('imgHeight 1', gMeme.imgHeight)
     var imageObj = new Image();
     imageObj.onload = function () {
         context.drawImage(imageObj, 0, 0, gCanvas.width, gCanvas.height);
     }
     var reader = new FileReader();
-    
+
     reader.onload = function (event) {
         var img = document.querySelector('img');
         img.onload = function () {
             gCanvas.width = img.width;
             gCanvas.height = img.height;
             gMeme.imgWidth = document.querySelector('img').naturalWidth;
-            gMeme.imgHeight = document.querySelector('img').naturalHeight; 
+            gMeme.imgHeight = document.querySelector('img').naturalHeight;
             gPosY = gMeme.imgHeight - gMeme.txts[gIdx].size;
             gCtx.drawImage(img, 0, 0);
         }
         img.src = event.target.result;
     }
     init();
-    console.log('imgHeight 2',gMeme.imgHeight)
+    console.log('imgHeight 2', gMeme.imgHeight)
     gPosY = gCanvas.height - 20;
     reader.readAsDataURL(e.target.files[0]);
-
-    // renderCanvas('')
 }
 
 function ChangeCanvasSize() {
@@ -157,6 +155,8 @@ function drawText(txt) {
     gCtx.beginPath();
     gCtx.font = size + 'px ' + font;
     gCtx.strokeText(text, x, y);
+    gCtx.shadowBlur = 20;
+    gCtx.shadowColor = "black";
     gCtx.fillStyle = gMeme.txts[gIdx].color;
     gCtx.fillText(txt, x, y);
     getTextWidth(text);
@@ -172,6 +172,8 @@ function drawText(txt) {
         gCtx.beginPath();
         gCtx.font = size + 'px ' + font;
         gCtx.strokeText(text, x, y);
+        gCtx.shadowBlur = 20;
+        gCtx.shadowColor = "black";
         gCtx.fillStyle = gMeme.txts[i].color;
         gCtx.fillText(text, x, y);
         gCtx.closePath();
@@ -197,7 +199,7 @@ function SaveText() {
     document.getElementById('text-box').value = gMeme.txts[gIdx].line;
     console.log(gMeme);
     console.log('gposy', gPosY);
-    console.log('imgHeight 3',gMeme.imgHeight)
+    console.log('imgHeight 3', gMeme.imgHeight)
 
     if (gPosY > (gMeme.imgHeight / gMeme.txts[gIdx].size) + (gMeme.txts[gIdx].size * 3)) {
         gPosY -= gMeme.txts[gIdx].size;
@@ -218,7 +220,6 @@ function nextLine() {
         gIdx++;
         var text = gMeme.txts[gIdx].line;
         document.getElementById('text-box').value = text;
-        // gMeme.txts[gIdx].line = '';
         gMeme.txts[gIdx].line = text;
         console.log(text)
         renderCanvas(document.getElementById('text-box').value);
@@ -233,19 +234,10 @@ function prevLine() {
         document.getElementById('text-box').value = text;
         var color = gMeme.txts[gIdx].color;
         document.getElementById('color-changer').value = color;
-        // gMeme.txts[gIdx].color = color;
         gMeme.txts[gIdx].line = text;
+
         renderCanvas(document.getElementById('text-box').value)
         console.log(text)
-        // if (text === document.getElementById('text-box').value) {
-        //     gMeme.txts[gIdx].line = text;
-        //     renderCanvas(text)
-
-        // } else {
-        // gMeme.txts[gIdx].line = '';
-        // renderCanvas(document.getElementById('text-box').value)
-
-        // }
         console.log('gidx', gIdx);
     }
 }
@@ -256,32 +248,32 @@ function changeColor() {
 }
 
 function moveTextUp() {
-    gMeme.txts[gIdx].posY--;
+    gMeme.txts[gIdx].posY -= 5;
     renderCanvas(document.getElementById('text-box').value);
 }
 
 function moveTextDown() {
-    gMeme.txts[gIdx].posY++;
+    gMeme.txts[gIdx].posY += 5;
     renderCanvas(document.getElementById('text-box').value);
 }
 
 function moveTextLeft() {
-    --gMeme.txts[gIdx].posX;
+    gMeme.txts[gIdx].posX -= 10
     renderCanvas(document.getElementById('text-box').value);
 }
 
 function moveTextRight() {
-    ++gMeme.txts[gIdx].posX;
+    gMeme.txts[gIdx].posX += 10;
     renderCanvas(document.getElementById('text-box').value);
 }
 
 function decreaseFont() {
-    --gMeme.txts[gIdx].size;
+    gMeme.txts[gIdx].size -= 5;
     renderCanvas(document.getElementById('text-box').value);
 }
 
 function increaseFont() {
-    ++gMeme.txts[gIdx].size;
+    gMeme.txts[gIdx].size += 5;
     renderCanvas(document.getElementById('text-box').value);
 }
 
@@ -338,17 +330,27 @@ function canvasClicked(ev) {
     for (var i = 0; i < gMeme.txts.length; i++) {
         var txt = gMeme.txts[i].line;
         var width = gCtx.measureText(txt).width;
-        if (txt === '') width = 300;
+        var txtSize = gMeme.txts[gIdx].size
+        if (txt === '') width = gCtx.measureText(document.getElementById('text-box').value).width;
         if (
-            ev.offsetX > gMeme.txts[i].posX &&
+            ev.offsetX > gMeme.txts[i].posX - width &&
             ev.offsetX < gMeme.txts[i].posX + width &&
-            ev.offsetY > gMeme.txts[i].posY - 50 &&
-            ev.offsetY < gMeme.txts[i].posY + 50
+            ev.offsetY > gMeme.txts[i].posY - (txtSize * 2) &&
+            ev.offsetY < gMeme.txts[i].posY + txtSize
         ) {
+            gCtx.fillStyle = "red";
+            gCtx.fillRect(gMeme.txts.gPosX, gMeme.txts.gPosY, 200, 10);
             gDragIdx = i;
             console.log('gdrag', gDragIdx)
             console.log('text', txt)
             drag(ev);
         }
     }
+}
+
+function contact() {
+    var subject = document.querySelector('#mail-subject').value;
+    var message = document.querySelector('#mail-message').value;
+    var strHTML = `<a href="mailto:email@example.com?subject=${subject}&body=${message}">Email me</a>`
+    window.open(strHTML, '_blank');
 }

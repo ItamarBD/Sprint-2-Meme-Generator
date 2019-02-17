@@ -6,20 +6,26 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link rel="stylesheet" href="css/style.css">
     <link rel="shortcut icon" type="img/png" href="img/favicon.png"/>
-    <title>Document</title>
+    <title>Meme generator</title>
 </head>
 <body onload="init()">
 
-    <select class="language" onchange="onSetLang(this.value)">
-        <option value="en">English</option>
-        <option value="he">עברית</option>
-    </select>
-    
+    <div class="lang-bar flex">
+        <select class="language" onchange="onSetLang(this.value)">
+            <option value="en">English</option>
+            <option value="he">עברית</option>
+        </select>
+        
+        <div class="contact-nav">
+            <a class="contact" data-trans="contact" href="about.html">Contact</a>
+        </div>
+    </div>
+
     <main class="main-container flex">
 
-        <header>
-            <!-- <img class="header-img" src="img/favicon.png"> -->
-            <h2>Meme generator</h2>
+        <header class="header">
+            <h2 class="title" data-trans="title">Meme generator</h2>
+            <!-- <a class="contact" data-trans="contact" href="about.html">Contact</a> -->
         </header>
         
         <div class="flex-container flex">
@@ -32,13 +38,13 @@
             <div class="edit-pannel-container flex">
                 <span data-trans="enter-text">Enter text</span>
                 <input id="text-box" type="text" oninput="renderCanvas(this.value)"> 
-                <div>
+                <div class="color-font">
                     <button class="btn increase" onclick="increaseFont()">+</button>
-                    <input type="color" id="color-changer" onsubmit="changeColor()">
+                    <input type="color" value="#ffffff" id="color-changer" onsubmit="changeColor()">
                     <button class="btn decrease" onclick="decreaseFont()">-</button> 
                 </div>
-                <button class="btn clear-btn" data-trans="clear" onclick="clearText()">Clear text</button> 
                 <button id="add-text" class="btn add-text-btn" data-trans="add" onclick="addText()">Add text</button> 
+                <button class="btn clear-btn" data-trans="clear" onclick="clearText()">Clear text</button> 
                 <button id="next-line" class="btn" data-trans="next" onclick="nextLine()">Next line</button> 
                 <button id="prev-line" class="btn" data-trans="previous" onclick="prevLine()">Previous line</button>  
                 <div>
@@ -59,10 +65,10 @@
                 </select> 
                 <a href="" type="button" class="btn download-btn" data-trans="download" id="download" onclick="downloadCanvas(this)" >Download</a> 
                 <div>
-                    
-                    <button class="btn" type="submit">
-                        <input type="file" id="imageLoader" onsubmit="handleImage()" name="imageLoader"/></button>
-                    <a href="https://mail.google.com/mail/?view=cm&fs=1&tf=1&to=iatmarbd@gmail.com" target="_blank">Email me</a>
+                    <label for="imageLoader" class="btn upload-btn" type="submit">
+                      <span>Upload</span> 
+                    </label>
+                    <input type="file" id="imageLoader" onsubmit="handleImage()" name="imageLoader"/>
                 </div>
                     
 

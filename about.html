@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="css/style.css">
+    <title>About me</title>
+</head>
+<body>
+
+    <div class="lang-bar flex">
+        <select class="language" onchange="onSetLang(this.value)">
+            <option value="en">English</option>
+            <option value="he">עברית</option>
+        </select>
+        
+        <div class="contact-nav">
+            <a class="contact" data-trans="contact-about" href="index.html">Back to meme generator</a>
+        </div>
+    </div>
+
+    <main class="main-container flex">
+        <div>
+
+        <header class="header">
+                <!-- <img class="header-img" src="img/favicon.png"> -->
+            <h2 class="title" data-trans="title">About me</h2>
+            <!-- <a class="contact" data-trans="contact" href="about.html">Contact</a> -->
+        </header>
+        
+            <div class="about-container flex">
+                <h3 data-trans="my-name">Itamar ben-David</h3>
+                <div class="img">
+                    <img class="me-img" src="img/22.jpg">
+                </div>
+                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Fugit quae, odit reprehenderit a alias excepturi facere earum sint doloremque tenetur repellendus exercitationem placeat et quaerat quo? Molestiae cumque doloremque odit? Lorem ipsum dolor sit, amet consectetur adipisicing elit. Ratione consequuntur laudantium porro sit modi alias at quam ipsam libero illo veritatis natus aspernatur quia, officiis eius vel quibusdam. Exercitationem, esse?</p>
+                <!-- <span>Subject</span> <input type="text" name="Subject" id="mail-subject">
+                <span>Message</span> <input type="text" name="Message" id="mail-message"> -->
+                
+                <button class="email-btn btn">
+                    <a href="https://mail.google.com/mail/?view=cm&fs=1&tf=1&to=iatmarbd@gmail.com" target="_blank" data-trans="email">Email me</a>
+                </button>
+            </div>
+
+        </div>
+    </main>
+
+    <script src="js/main.js"></script>
+    <script src="js/i18n-service.js"></script>
+</body>
+</html>

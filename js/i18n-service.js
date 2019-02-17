@@ -2,6 +2,14 @@
 var gCurrLang = 'en';
 
 var gTrans = {
+    'title': {
+        en: 'Meme generator',
+        he: 'מחולל ממים'
+    },
+    'contact': {
+        en: 'Contact',
+        he: 'צור קשר'
+    },
     'enter-text': {
         en: 'Enter text',
         he: 'הכנס טקסט'
@@ -41,8 +49,19 @@ var gTrans = {
     'download': {
         en: 'Download',
         he: 'הורד'
+    },
+    'email': {
+        en: 'Email me',
+        he: 'שלח דואר אלקטרוני'
+    },
+    'contact-about': {
+        en: 'Back to meme generator',
+        he: 'חזרה למחולל הממים'
+    },
+    'my-name': {
+        en: 'Itamar ben-David',
+        he: 'איתמר בן-דוד'
     }
-
 }
 
 
