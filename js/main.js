@@ -8,8 +8,8 @@ var gMeme = {
             size: 50,
             align: 'left',
             color: '',
-            posX: 50,
-            posY: 70,
+            posX: 30,
+            posY: 50,
             font: 'impact'
         }
     ],
@@ -27,24 +27,21 @@ var isDown = false;
 var gDragIdx;
 
 var imageLoader = document.getElementById('imageLoader');
-    imageLoader.addEventListener('change', handleImage, false);
+imageLoader.addEventListener('change', handleImage, false);
 // var canvas = document.getElementById('imageCanvas');
 // var ctx = canvas.getContext('2d');
 
 
-var imageObj = new Image();
-imageObj.onload = function () {
-    context.drawImage(imageObj, 0, 0, gCanvas.width, gCanvas.height);
-}
+
 
 function init() {
     gCanvas = document.querySelector('canvas');
     gCtx = gCanvas.getContext('2d');
     console.log(gCtx);
-
     getImgSize();
     ChangeCanvasSize();
     drawImg();
+    gIdx = 0;
 }
 
 function onSetLang(lang) {
@@ -57,18 +54,54 @@ function onSetLang(lang) {
     doTrans();
 }
 
-function handleImage(e){
+function clearGmeme() {
+    document.getElementById('text-box').value = '';
+    gMeme = {
+        // selectedImgId: 5,
+        txts: [
+            {
+                line: '',
+                size: 50,
+                align: 'left',
+                color: '',
+                posX: 30,
+                posY: 50,
+                font: 'impact'
+            }
+        ],
+        imgHeight: gCanvas.width,
+        imgWidth: gCanvas.height
+    }
+}
+
+function handleImage(e) {
+    clearGmeme();
+
+    console.log('imgHeight 1',gMeme.imgHeight)
+    var imageObj = new Image();
+    imageObj.onload = function () {
+        context.drawImage(imageObj, 0, 0, gCanvas.width, gCanvas.height);
+    }
     var reader = new FileReader();
-    reader.onload = function(event){
-        var img = new Image();
-        img.onload = function(){
+    
+    reader.onload = function (event) {
+        var img = document.querySelector('img');
+        img.onload = function () {
             gCanvas.width = img.width;
             gCanvas.height = img.height;
-            gCtx.drawImage(img,0,0);
+            gMeme.imgWidth = document.querySelector('img').naturalWidth;
+            gMeme.imgHeight = document.querySelector('img').naturalHeight; 
+            gPosY = gMeme.imgHeight - gMeme.txts[gIdx].size;
+            gCtx.drawImage(img, 0, 0);
         }
         img.src = event.target.result;
     }
-    reader.readAsDataURL(e.target.files[0]);     
+    init();
+    console.log('imgHeight 2',gMeme.imgHeight)
+    gPosY = gCanvas.height - 20;
+    reader.readAsDataURL(e.target.files[0]);
+
+    // renderCanvas('')
 }
 
 function ChangeCanvasSize() {
@@ -155,7 +188,7 @@ function SaveText() {
         size: gMeme.txts[gIdx].size,
         align: 'left',
         color: '',
-        posX: 50,
+        posX: 30,
         posY: gPosY,
         font: font
     }
@@ -163,10 +196,12 @@ function SaveText() {
     gIdx = gMeme.txts.length - 1;
     document.getElementById('text-box').value = gMeme.txts[gIdx].line;
     console.log(gMeme);
-    console.log('gposy',gPosY);
-    if (gPosY > 120) {
-        gPosY -= 40;
-    }   else gPosY = gMeme.imgHeight - 100;
+    console.log('gposy', gPosY);
+    console.log('imgHeight 3',gMeme.imgHeight)
+
+    if (gPosY > (gMeme.imgHeight / gMeme.txts[gIdx].size) + (gMeme.txts[gIdx].size * 3)) {
+        gPosY -= gMeme.txts[gIdx].size;
+    } else gPosY = gMeme.imgHeight - 100;
 }
 
 function clearText() {
@@ -312,7 +347,7 @@ function canvasClicked(ev) {
         ) {
             gDragIdx = i;
             console.log('gdrag', gDragIdx)
-            console.log('text',txt)
+            console.log('text', txt)
             drag(ev);
         }
     }

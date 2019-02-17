@@ -47,9 +47,11 @@
                     <button class="btn move-btn right" onclick="moveTextRight()">→</button> <br>
                     <button class="btn move-btn down" onclick="moveTextDown()">↓</button> 
                 </div>
-                <button class="btn text-align" data-trans="align-left" onclick="txtAlignLeft()">Align left</button> 
-                <button class="btn text-align" data-trans="align-center" onclick="txtAlignCenter()">Align center</button> 
-                <button class="btn text-align" data-trans="align-right" onclick="txtAlignRight()">Align right</button>
+                <div class="align flex">
+                    <button class="btn text-align" data-trans="align-left" onclick="txtAlignLeft()">Align left</button> 
+                    <button class="btn text-align" data-trans="align-center" onclick="txtAlignCenter()">Align center</button> 
+                    <button class="btn text-align" data-trans="align-right" onclick="txtAlignRight()">Align right</button>
+                </div>
                 <span data-trans="font">Font:</span> <select name="font-selector" id="font" onchange="changFont()">
                     <option id="impact-font"  value="impact">Impact</option>
                     <option id="serif-font" value="serif">Serif</option>
@@ -59,7 +61,7 @@
                 <div>
                     
                     <button class="btn" type="submit">
-                        <input type="file" id="imageLoader" name="imageLoader"/></button>
+                        <input type="file" id="imageLoader" onsubmit="handleImage()" name="imageLoader"/></button>
                     <a href="https://mail.google.com/mail/?view=cm&fs=1&tf=1&to=iatmarbd@gmail.com" target="_blank">Email me</a>
                 </div>
                     
