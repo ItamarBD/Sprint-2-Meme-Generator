@@ -38,16 +38,18 @@
             <div class="edit-pannel-container flex">
                 <span data-trans="enter-text">Enter text</span>
                 <input id="text-box" type="text" oninput="renderCanvas(this.value)"> 
-                <div class="color-font">
+                <button id="add-text" class="btn add-text-btn" data-trans="add" onclick="addText()">Save text</button>                 
+                <div class="color-font-container flex">
                     <button class="btn increase" onclick="increaseFont()">+</button>
                     <input type="color" value="#ffffff" id="color-changer" onsubmit="changeColor()">
                     <button class="btn decrease" onclick="decreaseFont()">-</button> 
                 </div>
-                <button id="add-text" class="btn add-text-btn" data-trans="add" onclick="addText()">Add text</button> 
-                <button class="btn clear-btn" data-trans="clear" onclick="clearText()">Clear text</button> 
-                <button id="next-line" class="btn" data-trans="next" onclick="nextLine()">Next line</button> 
-                <button id="prev-line" class="btn" data-trans="previous" onclick="prevLine()">Previous line</button>  
-                <div>
+                <div class="next-prev-container flex">
+                    <button id="prev-line" class="btn" data-trans="previous" onclick="prevLine()">Previous line</button>  
+                    <button class="btn clear-btn" data-trans="clear" onclick="clearText()">Clear text</button> 
+                    <button id="next-line" class="btn" data-trans="next" onclick="nextLine()">Next line</button> 
+                </div>
+                <div class="arrows-container">
                     <button class="btn move-btn up" onclick="moveTextUp()">↑</button> <br>
                     <button class="btn move-btn left" onclick="moveTextLeft()">←</button>
                     <button class="btn move-btn right" onclick="moveTextRight()">→</button> <br>
@@ -58,17 +60,21 @@
                     <button class="btn text-align" data-trans="align-center" onclick="txtAlignCenter()">Align center</button> 
                     <button class="btn text-align" data-trans="align-right" onclick="txtAlignRight()">Align right</button>
                 </div>
-                <span data-trans="font">Font:</span> <select name="font-selector" id="font" onchange="changFont()">
-                    <option id="impact-font"  value="impact">Impact</option>
-                    <option id="serif-font" value="serif">Serif</option>
-                    <option id="helvetica-font" value="helvetica ">Helvetica </option>
-                </select> 
-                <a href="" type="button" class="btn download-btn" data-trans="download" id="download" onclick="downloadCanvas(this)" >Download</a> 
-                <div>
-                    <label for="imageLoader" class="btn upload-btn" type="submit">
-                      <span>Upload</span> 
-                    </label>
-                    <input type="file" id="imageLoader" onsubmit="handleImage()" name="imageLoader"/>
+                <div class="font-container flex">
+                    <span data-trans="font">Font:</span> <select name="font-selector" id="font" onchange="changFont()">
+                        <option id="impact-font"  value="impact">Impact</option>
+                        <option id="serif-font" value="serif">Serif</option>
+                        <option id="helvetica-font" value="helvetica ">Helvetica </option>
+                    </select> 
+                </div>
+                <div class="download-upload-container flex">
+                    <a href="" type="button" class="btn download-btn" data-trans="download" id="download" onclick="downloadCanvas(this)" >Download</a> 
+                    <!-- <div> -->
+                        <label for="imageLoader" class="btn upload-btn" type="submit">
+                            <span>Upload</span> 
+                        </label>
+                        <input type="file" id="imageLoader" onsubmit="handleImage()" name="imageLoader"/>
+                    <!-- </div> -->
                 </div>
                     
 
@@ -77,7 +83,8 @@
   
     </main>
 
-    <script src="js/main.js"></script>
+    <script src="js/canvas-controller.js"></script>
+    <script src="js/canvas-service.js"></script>
     <script src="js/i18n-service.js"></script>
 </body>
 </html>

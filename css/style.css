@@ -57,6 +57,11 @@ header {
 
 }
 
+.font-container {
+    flex-direction: row;
+    justify-content: center;
+}
+
 .flex-container {
     flex-direction: row;
 }
@@ -64,7 +69,8 @@ header {
 .about-container {
     flex-direction: column;
     margin-left: 50px;
-    align-items: center;    
+    align-items: center; 
+    margin: 0 auto;   
 }
 
 canvas {
@@ -77,7 +83,6 @@ canvas {
     box-shadow: 0px 0px 10px 1px black;
 }
 
-
 .edit-pannel-container {
     flex-direction: column;
     /* border: 2px blue solid; */
@@ -86,15 +91,20 @@ canvas {
     width: 30vw;
 }
 
+.arrows-container {
+    margin: 10px 0;
+}
+
 .btn {
     background-color: rgb(0, 110, 0);
-    /* background-color: rgb(223, 141, 141); */
     color: white;
     border-radius: 8px;
     padding: 3px;
     margin: 3px;
     z-index: 1;
     cursor: pointer;
+    width: -webkit-fill-available;
+
 }
 
 .move-btn {
@@ -118,8 +128,12 @@ canvas {
     padding: 10px 30px;
 }
 
-.color-font {
+.color-font-container {
     margin-top: 5px;
+}
+
+.download-upload-container {
+    flex-direction: row;
 }
 
 .increase, .decrease {
@@ -141,11 +155,13 @@ a:hover, .btn:hover {
 input {
     border-radius: 8px;
     padding: 2px;
+    margin-bottom: 10px;
 }
 
 #color-changer {
     background-color: beige;
     cursor: pointer;
+    padding: 0 20px;
 }
 
 .header-img {
@@ -163,6 +179,8 @@ input {
 #font {
     margin: 10px 0;
     cursor: pointer;
+    margin: 10px 10px;
+
 }
 
 input[type="file"] {
@@ -187,6 +205,10 @@ input[type="file"] {
         min-width: 300px;
     }
 
+    .arrows-container {
+        margin: 0;
+    }
+
     .canvas-container {
         max-width: 740px;
         min-width: 400px;
@@ -207,7 +229,7 @@ input[type="file"] {
     }
 
     .language {
-        margin: 10px 0px 15px 10px;
+        margin: 5px 0px 15px 10px;
     }
 
 }

@@ -24,7 +24,7 @@ var gTrans = {
     },
     'next': {
         en: 'Next line',
-        he: 'שורה הבאהה'
+        he: 'השורה הבאה'
     },
     'previous': {
         ev: 'Previous line',
@@ -61,10 +61,12 @@ var gTrans = {
     'my-name': {
         en: 'Itamar ben-David',
         he: 'איתמר בן-דוד'
+    },
+    'title-about': {
+        en: 'About me',
+        he: 'אודתי'
     }
 }
-
-
 
 
 function doTrans() {
