@@ -22,6 +22,15 @@ var gCtx;
 var gIdx = 0;
 var gPosY = 500;
 var gTextWidth;
+var gEvent;
+var isDown = false;
+var gDragIdx;
+
+var imageLoader = document.getElementById('imageLoader');
+    imageLoader.addEventListener('change', handleImage, false);
+// var canvas = document.getElementById('imageCanvas');
+// var ctx = canvas.getContext('2d');
+
 
 var imageObj = new Image();
 imageObj.onload = function () {
@@ -36,6 +45,30 @@ function init() {
     getImgSize();
     ChangeCanvasSize();
     drawImg();
+}
+
+function onSetLang(lang) {
+    setLang(lang);
+    if (lang === 'he') {
+        document.body.classList.add('rtl')
+    } else {
+        document.body.classList.remove('rtl')
+    }
+    doTrans();
+}
+
+function handleImage(e){
+    var reader = new FileReader();
+    reader.onload = function(event){
+        var img = new Image();
+        img.onload = function(){
+            gCanvas.width = img.width;
+            gCanvas.height = img.height;
+            gCtx.drawImage(img,0,0);
+        }
+        img.src = event.target.result;
+    }
+    reader.readAsDataURL(e.target.files[0]);     
 }
 
 function ChangeCanvasSize() {
@@ -54,8 +87,6 @@ function getImgSize() {
     gCanvas.height = height;
     gMeme.imgWidth = width;
     gMeme.imgHeight = height;
-    console.log('width', width);
-    console.log('Height', height);
 }
 
 function renderCanvas(txt) {
@@ -92,7 +123,7 @@ function drawText(txt) {
 
     gCtx.beginPath();
     gCtx.font = size + 'px ' + font;
-    // gCtx.strokeText(text, x, y);
+    gCtx.strokeText(text, x, y);
     gCtx.fillStyle = gMeme.txts[gIdx].color;
     gCtx.fillText(txt, x, y);
     getTextWidth(text);
@@ -107,7 +138,7 @@ function drawText(txt) {
 
         gCtx.beginPath();
         gCtx.font = size + 'px ' + font;
-        // gCtx.strokeText(text, x, y);
+        gCtx.strokeText(text, x, y);
         gCtx.fillStyle = gMeme.txts[i].color;
         gCtx.fillText(text, x, y);
         gCtx.closePath();
@@ -119,7 +150,6 @@ function SaveText() {
     var font = gMeme.txts[gIdx].font
 
     if (gIdx === 1) gPosY = (gMeme.imgHeight / 2);
-    // console.log('gidx', gIdx)
     var newObj = {
         line: '',
         size: gMeme.txts[gIdx].size,
@@ -133,15 +163,19 @@ function SaveText() {
     gIdx = gMeme.txts.length - 1;
     document.getElementById('text-box').value = gMeme.txts[gIdx].line;
     console.log(gMeme);
-    gPosY -= 40;
+    console.log('gposy',gPosY);
+    if (gPosY > 120) {
+        gPosY -= 40;
+    }   else gPosY = gMeme.imgHeight - 100;
 }
 
 function clearText() {
-    // console.log('length', gMeme.txts.length)
-    console.log('gidx', gIdx)
-    gMeme.txts[gIdx - 1].line = '';
-    renderCanvas('');
-    gIdx--;
+    if (gIdx > 0) {
+        console.log('gidx', gIdx)
+        gMeme.txts[gIdx - 1].line = '';
+        renderCanvas('');
+        gIdx--;
+    }
 }
 
 function nextLine() {
@@ -173,9 +207,9 @@ function prevLine() {
         //     renderCanvas(text)
 
         // } else {
-            // gMeme.txts[gIdx].line = '';
-            // renderCanvas(document.getElementById('text-box').value)
-           
+        // gMeme.txts[gIdx].line = '';
+        // renderCanvas(document.getElementById('text-box').value)
+
         // }
         console.log('gidx', gIdx);
     }
@@ -231,7 +265,6 @@ function changFont() {
 
 function getTextWidth(txt) {
     gTextWidth = gCtx.measureText(txt).width;
-    console.log('width', gTextWidth);
 }
 
 function txtAlignLeft() {
@@ -247,4 +280,40 @@ function txtAlignCenter() {
 function txtAlignRight() {
     gMeme.txts[gIdx].posX = gMeme.imgWidth - gTextWidth - 50;
     renderCanvas(document.getElementById('text-box').value)
+}
+
+function drag(ev) {
+    isDown = true;
+}
+
+function move(ev) {
+    if (!isDown) return;
+    gMeme.txts[gDragIdx].posX = ev.offsetX;
+    gMeme.txts[gDragIdx].posY = ev.offsetY;
+    renderCanvas(document.getElementById('text-box').value);
+
+}
+
+function stopDrag(ev) {
+    isDown = false;
+}
+
+function canvasClicked(ev) {
+
+    for (var i = 0; i < gMeme.txts.length; i++) {
+        var txt = gMeme.txts[i].line;
+        var width = gCtx.measureText(txt).width;
+        if (txt === '') width = 300;
+        if (
+            ev.offsetX > gMeme.txts[i].posX &&
+            ev.offsetX < gMeme.txts[i].posX + width &&
+            ev.offsetY > gMeme.txts[i].posY - 50 &&
+            ev.offsetY < gMeme.txts[i].posY + 50
+        ) {
+            gDragIdx = i;
+            console.log('gdrag', gDragIdx)
+            console.log('text',txt)
+            drag(ev);
+        }
+    }
 }
